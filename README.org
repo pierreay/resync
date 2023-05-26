@@ -15,6 +15,13 @@ Install the requirements:
 sudo apt-get install rsync inotify-tools
 #+end_src
 
+Configure the system by increasing the inotify's watches for a user, otherwise,
+the =Couldn't initialize inotify: Too many open files= error could happened:
+
+#+begin_src bash :results output silent
+sudo make configure
+#+end_src
+
 Install it in normal mode:
 
 #+begin_src bash :results output silent

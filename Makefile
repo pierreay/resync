@@ -1,3 +1,6 @@
+configure:
+	sysctl fs.inotify.max_user_instances=256
+
 install:
 	cp src/resync.sh /usr/local/bin/resync
 
