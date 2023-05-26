@@ -15,5 +15,7 @@ if [[ ! -d "$1" ]]; then
 fi
 
 while inotifywait -r -e modify,create,delete,move "$1"; do
-    rsync -avz --progress "$1" $*:;
+    for remote in $*; do
+        rsync -avz --progress "$1" $remote:
+    done
 done
