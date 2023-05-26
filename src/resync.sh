@@ -14,6 +14,8 @@ if [[ ! -d "$1" ]]; then
     exit 1
 fi
 
+trap "exit" INT
+
 while inotifywait -r -e modify,create,delete,move "$1"; do
     for remote in $*; do
         rsync -avz --progress "$1" $remote:
