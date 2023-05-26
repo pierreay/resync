@@ -1,0 +1,48 @@
+* ReSync
+
+ReSync (REpository SYNChronizer) is a small utility used to continuously and
+unilaterally synchronize a master machine (typically a coding machine) with
+slaves machines (build or execution machines) in real time.
+
+The name come from the original usage (synchronize a git repository from a
+coding machine to a build/execution machine) and is a word play with =rsync=.
+
+* Installation
+
+Install the requirements:
+
+#+begin_src bash
+sudo apt-get install rsync inotify-tools
+#+end_src
+
+Install it in normal mode:
+
+#+begin_src bash :results output silent
+sudo make install
+#+end_src
+
+Install it in development mode:
+
+#+begin_src bash :results output silent
+sudo make install-dev
+#+end_src
+
+Uninstall it:
+
+#+begin_src bash :results output silent
+sudo make uninstall
+#+end_src
+
+* Usage
+
+Call the script with:
+1. The repository path as first argument,
+2. The machines' SSH names as second (and more) argument(s).
+
+#+begin_src bash :results output silent :var pwd="/home/pierre/work/info/research/projects/screaming_channels/screaming_channels_utils" :var hostname="reaper"
+resync $pwd $hostname
+#+end_src
+
+The repository will be continuously synchronized to the SSH machine, in its
+home directory, using =inotify= as change detection system and =rsync= as
+transfer system.
