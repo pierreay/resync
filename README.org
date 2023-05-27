@@ -1,4 +1,7 @@
 * ReSync
+:PROPERTIES:
+:ID:       61ab545c-74f6-4054-90a2-c6d9001c5b5d
+:END:
 
 ReSync (REpository SYNChronizer) is a small utility used to continuously and
 unilaterally synchronize a master machine (typically a coding machine) with
@@ -11,7 +14,7 @@ coding machine to a build/execution machine) and is a word play with =rsync=.
 
 Install the requirements:
 
-#+begin_src bash
+#+begin_src bash :eval never
 sudo apt-get install rsync inotify-tools
 #+end_src
 
