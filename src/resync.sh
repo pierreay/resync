@@ -16,8 +16,17 @@ fi
 
 trap "exit" INT
 
-while inotifywait -r -e modify,create,delete,move "$1"; do
+source="$1"
+shift
+echo "Source: $source"
+echo -n "Destination(s): "
+for remote in $*; do
+    echo -n "$remote "
+done
+echo -e "\n"
+
+while inotifywait -r -e modify,create,delete,move "$source"; do
     for remote in $*; do
-        rsync -avz --progress "$1" $remote:
+        rsync -avz --progress "$source" $remote:
     done
 done
