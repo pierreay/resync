@@ -9,3 +9,7 @@ install-dev:
 
 uninstall:
 	rm -rf /usr/local/bin/resync
+
+reinstall: uninstall install
+
+reinstall-dev: uninstall install-dev
