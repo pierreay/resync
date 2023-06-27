@@ -56,3 +56,8 @@ resync $pwd $hostname
 The repository will be continuously synchronized to the SSH machine, in its
 home directory, using =inotify= as change detection system and =rsync= as
 transfer system.
+
+* Contributing
+
+Regarding the current installation method, =resync.sh= has to remain a
+single-file project for now.
