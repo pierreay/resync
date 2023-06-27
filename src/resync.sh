@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source log.sh
+
 if [[ $# < 2 ]]; then
     cat << EOF
 Usage: resync PATH HOSTNAME [HOSTNAMES...]
@@ -10,7 +12,7 @@ EOF
 fi
 
 if [[ ! -d "$1" ]]; then
-    echo "Error: $1 is not a valid directory!"
+    log_error "$1 is not a valid directory!"
     exit 1
 fi
 
@@ -18,15 +20,15 @@ trap "exit" INT
 
 source="$1"
 shift
-echo "Source: $source"
-echo -n "Destination(s): "
+log_info "Source: $source"
+log_info "Destination(s): "
 for remote in $*; do
-    echo -n "$remote "
+    log_info "-> $remote "
 done
-echo -e "\n"
 
 while inotifywait -r -e modify,create,delete,move "$source"; do
     for remote in $*; do
+        log_info $(date --rfc-3339=seconds)
         rsync -avz --progress "$source" $remote:
     done
 done
