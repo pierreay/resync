@@ -12,10 +12,16 @@ coding machine to a build/execution machine) and is a word play with =rsync=.
 
 * Installation
 
-Install the requirements:
+Install the requirements for Debian-based system:
 
 #+begin_src bash :eval never
 sudo apt-get install rsync inotify-tools
+#+end_src
+
+Install the requirements for Arch Linux system:
+
+#+begin_src bash :eval never
+sudo pacman -S rsync inotify-tools
 #+end_src
 
 Configure the system by increasing the inotify's watches for a user, otherwise,
