@@ -59,9 +59,9 @@ Call the script with:
 resync $pwd $hostname
 #+end_src
 
-The repository will be continuously synchronized to the SSH machine, in its
-home directory, using =inotify= as change detection system and =rsync= as
-transfer system.
+The repository will be continuously synchronized to the SSH machine, in a =git=
+folder under its home directory (=$REMOTE:$HOME/git=), using =inotify= as
+change detection system and =rsync= as transfer system.
 
 * Contributing
 

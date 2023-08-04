@@ -79,6 +79,6 @@ done
 while inotifywait -r -e modify,create,delete,move "$source"; do
     for remote in $*; do
         log_info "$remote ; $(date --rfc-3339=seconds)"
-        rsync -avz --progress --exclude=".#*" "$source" $remote:
+        rsync -avz --progress --exclude=".#*" "$source" $remote:git/
     done
 done
