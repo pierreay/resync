@@ -76,7 +76,7 @@ for remote in $*; do
     log_info "-> $remote "
 done
 
-while inotifywait -r -e modify,create,delete,move "$source"; do
+while inotifywait -r -e modify,create,delete,move --exclude="index.lock|.#" "$source"; do
     for remote in $*; do
         log_info "$remote ; $(date --rfc-3339=seconds)"
         rsync -avz --progress --exclude=".#*" "$source" $remote:git/
