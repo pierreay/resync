@@ -68,7 +68,7 @@ fi
 
 trap "exit" INT
 
-source="$1"
+source="${1%/}"
 shift
 log_info "Source: $source"
 log_info "Destination(s): "
