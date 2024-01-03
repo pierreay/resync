@@ -52,6 +52,11 @@ function log_info() {
 
 # * resync.sh
 
+function rsync_wrapper() {
+    log_info "$remote ; $(date --rfc-3339=seconds)"
+    rsync -avz --progress --exclude=".#*" "$source" $remote:git/
+}
+
 if [[ $# < 2 ]]; then
     cat << EOF
 Usage: resync PATH HOSTNAME [HOSTNAMES...]
@@ -78,7 +83,6 @@ done
 
 while inotifywait -r -e modify,create,delete,move --exclude="index.lock|.#" "$source"; do
     for remote in $*; do
-        log_info "$remote ; $(date --rfc-3339=seconds)"
-        rsync -avz --progress --exclude=".#*" "$source" $remote:git/
+        rsync_wrapper "$source" "$remote"
     done
 done
