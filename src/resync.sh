@@ -57,6 +57,8 @@ function rsync_wrapper() {
     rsync -avz --progress --exclude=".#*" "$source" $remote:git/
 }
 
+# Exit on a CTRL-C.
+# Print help if number of argument is less than 2.
 if [[ $# < 2 ]]; then
     cat << EOF
 Usage: resync PATH HOSTNAME [HOSTNAMES...]
@@ -66,6 +68,7 @@ EOF
     exit 1
 fi
 
+# Safety-check for first argument.
 if [[ ! -d "$1" ]]; then
     log_error "$1 is not a valid directory!"
     exit 1
@@ -73,6 +76,7 @@ fi
 
 trap "exit" INT
 
+# Use the first argument as the source (PATH).
 source="${1%/}"
 shift
 log_info "Source: $source"
