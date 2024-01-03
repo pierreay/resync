@@ -58,6 +58,8 @@ function rsync_wrapper() {
 }
 
 # Exit on a CTRL-C.
+trap "exit" INT
+
 # Print help if number of argument is less than 2.
 if [[ $# < 2 ]]; then
     cat << EOF
@@ -73,8 +75,6 @@ if [[ ! -d "$1" ]]; then
     log_error "$1 is not a valid directory!"
     exit 1
 fi
-
-trap "exit" INT
 
 # Use the first argument as the source (PATH).
 source="${1%/}"
