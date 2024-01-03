@@ -60,12 +60,23 @@ function rsync_wrapper() {
 # Exit on a CTRL-C.
 trap "exit" INT
 
+# Handle arguments.
+FORCE=0
+# Consume the first argument if it is a -f switch.
+if [[ "$1" == "-f" ]]; then
+    FORCE=1
+    shift
+fi
+
 # Print help if number of argument is less than 2.
 if [[ $# < 2 ]]; then
     cat << EOF
-Usage: resync PATH HOSTNAME [HOSTNAMES...]
+Usage: resync [-f] PATH HOSTNAME [HOSTNAMES...]
+
 PATH is a git repository path being the synchronization source.
 HOSTNAME(S) are one or multiple SSH hostnames being the synchronization destination.
+
+If -f is specified, force a synchronization at initialization time.
 EOF
     exit 1
 fi
@@ -84,6 +95,11 @@ log_info "Destination(s): "
 for remote in $*; do
     log_info "-> $remote "
 done
+
+# Force first sync if FORCE is 1 based on command-line switches.
+if [[ $FORCE == 1 ]]; then
+    rsync_wrapper "$source" "$remote"
+fi
 
 while inotifywait -r -e modify,create,delete,move --exclude="index.lock|.#" "$source"; do
     for remote in $*; do
