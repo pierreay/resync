@@ -1,6 +1,16 @@
 #!/bin/bash
 
+# * Global configuration
+
+# NOTE: We want to exclude:
+# 1. Git locking files.
+# 2. Emacs temporary files.
+# 3. Syncthing temporary files.
+RSYNC_EXCLUDE="index.lock,.#*,.syncthing*"
+INOTIFY_EXCLUDE="index.lock|.#|.syncthing"
+
 # * log_color.sh
+
 # Cloned from:
 # https://github.com/pierreay/examples/blob/main/bash/log_color.sh
 
@@ -54,7 +64,7 @@ function log_info() {
 
 function rsync_wrapper() {
     log_info "$remote ; $(date --rfc-3339=seconds)"
-    rsync -avz --progress --exclude=".#*" "$source" $remote:git/
+    rsync -avz --progress --exclude={"$RSYNC_EXCLUDE"} "$source" $remote:git/
 }
 
 # Exit on a CTRL-C.
@@ -101,7 +111,7 @@ if [[ $FORCE == 1 ]]; then
     rsync_wrapper "$source" "$remote"
 fi
 
-while inotifywait -r -e modify,create,delete,move --exclude="index.lock|.#" "$source"; do
+while inotifywait -r -e modify,create,delete,move --exclude="$INOTIFY_EXCLUDE" "$source"; do
     for remote in $*; do
         rsync_wrapper "$source" "$remote"
     done
