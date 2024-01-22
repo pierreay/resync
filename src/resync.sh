@@ -2,12 +2,12 @@
 
 # * Global configuration
 
-# NOTE: We want to exclude:
-# 1. Git locking files.
+# NOTE: We want to exclude files changing while we are typing:
+# 1. Git index and locking files.
 # 2. Emacs temporary files.
 # 3. Syncthing temporary files.
-RSYNC_EXCLUDE="index.lock,.#*,.syncthing*"
-INOTIFY_EXCLUDE="index.lock|.#|.syncthing"
+RSYNC_EXCLUDE="*.git/index,*.git/index.lock,.#*,.syncthing*"
+INOTIFY_EXCLUDE=".git/index|.git/index.lock|.#|.syncthing"
 
 # * log_color.sh
 
