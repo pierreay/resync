@@ -2,10 +2,12 @@
 
 # * Global configuration
 
-# NOTE: We want to exclude files changing while we are typing:
+# We want to exclude files changing while we are typing:
 # 1. Git index and locking files.
 # 2. Emacs temporary files.
 # 3. Syncthing temporary files.
+# XXX: .git/index are still transferred by Rsync. Useful to exclude them? I'm
+# not sure, until they are not watched by inotify.
 RSYNC_EXCLUDE="*.git/index,*.git/index.lock,.#*,.syncthing*"
 INOTIFY_EXCLUDE=".git/index|.git/index.lock|.#|.syncthing"
 
