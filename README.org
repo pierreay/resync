@@ -81,3 +81,7 @@ processes in the same git project.
 Use a repository-wide lock file (/e.g./ =touch .git/.resync-lock=) during
 =rsync= process to allows launching =resync= on two machines for the same repo,
 allowing to do duplex synchronization.
+
+* Alternatives
+
+- OSync [[[https://github.com/deajan/osync][GitHub]], [[https://aur.archlinux.org/packages/osync][AUR]]] :: Bidirectional file sync script based on RSync.
